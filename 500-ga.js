@@ -143,10 +143,7 @@
                     diff_in_seconds = diff_in_ms / 1000,
 
                     //Store this for possible use later
-                    last_second_to_watch_for = second_to_watch_for,
-
-                    //The immediate flag is used to determine the "first" ever run through
-                    immediate = false
+                    last_second_to_watch_for = second_to_watch_for
                 ;
 
                 if( ! is_window_visible )
@@ -157,12 +154,21 @@
                 //First time through the loop this will be empty
                 if( null === second_to_watch_for )
                 {
-                    immediate = true;
 
                     //Since we're not actively looking for any specific second durations,
                     //grab the first from the array. NOTE: shift() reduces the size
                     //of the array, too!
+                    last_second_to_watch_for = seconds.shift();
                     second_to_watch_for = seconds.shift();
+
+                    routeGA(
+                                {
+                                    current: last_second_to_watch_for,
+                                    next: second_to_watch_for,
+                                },
+                                true
+                        );
+                    return;
                 }
 
                 //If not enough time has elapsed, wait for the next interval
@@ -190,7 +196,7 @@
                                 current: last_second_to_watch_for,
                                 next: second_to_watch_for,
                             },
-                            immediate
+                            false
                     );
 
             },
