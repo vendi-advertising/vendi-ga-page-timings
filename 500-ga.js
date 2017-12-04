@@ -5,7 +5,7 @@
         var
             //This is the category within GA that'we writing to. All of our other
             //code expected this to be the same so probably don't change it.
-            ga_category = 'TimeOnPage',
+            ga_category = 'TimeOnPagev2',
 
             start_time = Date.now(),
 
